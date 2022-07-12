@@ -1,0 +1,2141 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Cloud Resiliency Guidance - Architecture Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cloud-resiliency-guidance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Architecture Docs" class="md-header__button md-logo" aria-label="Architecture Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Architecture Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cloud Resiliency Guidance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Architecture Docs" class="md-nav__button md-logo" aria-label="Architecture Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Architecture Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Architecture Documentation Demo
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          ArchitectureDocsOverview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ArchitectureDocsOverview" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          ArchitectureDocsOverview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ArchitectureDocsOverview/" class="md-nav__link">
+        Architecture Docs Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Enterprise Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Enterprise Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Enterprise Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Enterprise_Architecture/" class="md-nav__link">
+        3. Enterprise Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Instructions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Instructions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Instructions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Instructions/MarkdownSyntax/" class="md-nav__link">
+        MarkdownSyntax
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Overarching Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Overarching Guidance" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Overarching Guidance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Overarching_Guidance/" class="md-nav__link">
+        5. Overarching Guidance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Solution Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Solution Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Solution Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Solution_Architecture/PDFtest/" class="md-nav__link">
+        Testing the embedding of a PDF
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Technical Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Technical Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Technical Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          API Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Guidance" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          API Guidance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API%20Guidance/Public_API_Guidance/" class="md-nav__link">
+        Public / Private API Guidance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Cloud Resiliency
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cloud Resiliency" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Cloud Resiliency
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Cloud Resiliency Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Cloud Resiliency Guidance
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    Guiding Principles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goals-objectives" class="md-nav__link">
+    Goals &amp; Objectives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document Scope
+  </a>
+  
+    <nav class="md-nav" aria-label="Document Scope">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    Out of Scope
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resiliency-capabilities-overview" class="md-nav__link">
+    Resiliency Capabilities Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-global-infrastructure-design" class="md-nav__link">
+    AWS Global Infrastructure Design
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Global Infrastructure Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#availability-zones" class="md-nav__link">
+    Availability Zones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-regions" class="md-nav__link">
+    AWS Regions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-service-fault-domains" class="md-nav__link">
+    AWS Service Fault Domains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-scaling" class="md-nav__link">
+    Component Scaling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-key-services" class="md-nav__link">
+    Overview of Key Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of Key Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-53" class="md-nav__link">
+    Route 53
+  </a>
+  
+    <nav class="md-nav" aria-label="Route 53">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-53-control-plane-vs-data-plane" class="md-nav__link">
+    Route 53 Control Plane vs. Data Plane
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#health-checks" class="md-nav__link">
+    Health Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-discovery" class="md-nav__link">
+    Service Discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-load-balancing" class="md-nav__link">
+    Application Load Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-load-balancing" class="md-nav__link">
+    Global Load Balancing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#potential-recovery-limitations" class="md-nav__link">
+    Potential Recovery Limitations
+  </a>
+  
+    <nav class="md-nav" aria-label="Potential Recovery Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-call-throttling" class="md-nav__link">
+    API Call Throttling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#availability-of-ec2-instance-types" class="md-nav__link">
+    Availability of EC2 instance types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-quotas" class="md-nav__link">
+    Service Quotas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    State Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-recovery-testing" class="md-nav__link">
+    Service Recovery Testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resiliency-requirements-patterns" class="md-nav__link">
+    Resiliency Requirements &amp; Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Resiliency Requirements &amp; Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-resiliency" class="md-nav__link">
+    Component Resiliency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resiliency-patterns" class="md-nav__link">
+    Resiliency Patterns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globally-resilient" class="md-nav__link">
+    Globally Resilient
+  </a>
+  
+    <nav class="md-nav" aria-label="Globally Resilient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-globally-resilient-workloads" class="md-nav__link">
+    Key Requirements for Globally Resilient workloads
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-globally-resilient-single-page-app-spa" class="md-nav__link">
+    Example Globally Resilient Single Page App (SPA)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regionally-resilient" class="md-nav__link">
+    Regionally Resilient
+  </a>
+  
+    <nav class="md-nav" aria-label="Regionally Resilient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-regionally-resilient-workloads" class="md-nav__link">
+    Key Requirements for Regionally Resilient workloads
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-single-page-app-spa" class="md-nav__link">
+    Example Single Page App (SPA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-service-to-service" class="md-nav__link">
+    Example Service to Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-regionally-resilient-kubernetes-application" class="md-nav__link">
+    Example Regionally Resilient Kubernetes Application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regionally-resilient-with-failover" class="md-nav__link">
+    Regionally Resilient with Failover
+  </a>
+  
+    <nav class="md-nav" aria-label="Regionally Resilient with Failover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-regionally-resilient-manual-failover-workloads" class="md-nav__link">
+    Key Requirements for Regionally Resilient (Manual Failover) workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-region-with-standby" class="md-nav__link">
+    Single Region with Standby
+  </a>
+  
+    <nav class="md-nav" aria-label="Single Region with Standby">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-single-region-with-standby-workloads" class="md-nav__link">
+    Key Requirements for Single Region with Standby workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-region" class="md-nav__link">
+    Single Region
+  </a>
+  
+    <nav class="md-nav" aria-label="Single Region">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-single-region-workloads" class="md-nav__link">
+    Key Requirements for Single Region workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-recovery-practices" class="md-nav__link">
+    Sound Recovery Practices
+  </a>
+  
+    <nav class="md-nav" aria-label="Sound Recovery Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-service-recovery" class="md-nav__link">
+    Best practices for service recovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-corresponding-architecture-practices" class="md-nav__link">
+    Recommended corresponding Architecture Practices
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended corresponding Architecture Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-reviews" class="md-nav__link">
+    Design Reviews
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-approval" class="md-nav__link">
+    Design Approval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-exceptions" class="md-nav__link">
+    Architecture Exceptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    Guiding Principles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goals-objectives" class="md-nav__link">
+    Goals &amp; Objectives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document Scope
+  </a>
+  
+    <nav class="md-nav" aria-label="Document Scope">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    Out of Scope
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resiliency-capabilities-overview" class="md-nav__link">
+    Resiliency Capabilities Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-global-infrastructure-design" class="md-nav__link">
+    AWS Global Infrastructure Design
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Global Infrastructure Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#availability-zones" class="md-nav__link">
+    Availability Zones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-regions" class="md-nav__link">
+    AWS Regions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-service-fault-domains" class="md-nav__link">
+    AWS Service Fault Domains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-scaling" class="md-nav__link">
+    Component Scaling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-key-services" class="md-nav__link">
+    Overview of Key Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of Key Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-53" class="md-nav__link">
+    Route 53
+  </a>
+  
+    <nav class="md-nav" aria-label="Route 53">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-53-control-plane-vs-data-plane" class="md-nav__link">
+    Route 53 Control Plane vs. Data Plane
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#health-checks" class="md-nav__link">
+    Health Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-discovery" class="md-nav__link">
+    Service Discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-load-balancing" class="md-nav__link">
+    Application Load Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-load-balancing" class="md-nav__link">
+    Global Load Balancing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#potential-recovery-limitations" class="md-nav__link">
+    Potential Recovery Limitations
+  </a>
+  
+    <nav class="md-nav" aria-label="Potential Recovery Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-call-throttling" class="md-nav__link">
+    API Call Throttling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#availability-of-ec2-instance-types" class="md-nav__link">
+    Availability of EC2 instance types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-quotas" class="md-nav__link">
+    Service Quotas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    State Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-recovery-testing" class="md-nav__link">
+    Service Recovery Testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resiliency-requirements-patterns" class="md-nav__link">
+    Resiliency Requirements &amp; Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Resiliency Requirements &amp; Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-resiliency" class="md-nav__link">
+    Component Resiliency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resiliency-patterns" class="md-nav__link">
+    Resiliency Patterns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globally-resilient" class="md-nav__link">
+    Globally Resilient
+  </a>
+  
+    <nav class="md-nav" aria-label="Globally Resilient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-globally-resilient-workloads" class="md-nav__link">
+    Key Requirements for Globally Resilient workloads
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-globally-resilient-single-page-app-spa" class="md-nav__link">
+    Example Globally Resilient Single Page App (SPA)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regionally-resilient" class="md-nav__link">
+    Regionally Resilient
+  </a>
+  
+    <nav class="md-nav" aria-label="Regionally Resilient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-regionally-resilient-workloads" class="md-nav__link">
+    Key Requirements for Regionally Resilient workloads
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-single-page-app-spa" class="md-nav__link">
+    Example Single Page App (SPA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-service-to-service" class="md-nav__link">
+    Example Service to Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-regionally-resilient-kubernetes-application" class="md-nav__link">
+    Example Regionally Resilient Kubernetes Application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regionally-resilient-with-failover" class="md-nav__link">
+    Regionally Resilient with Failover
+  </a>
+  
+    <nav class="md-nav" aria-label="Regionally Resilient with Failover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-regionally-resilient-manual-failover-workloads" class="md-nav__link">
+    Key Requirements for Regionally Resilient (Manual Failover) workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-region-with-standby" class="md-nav__link">
+    Single Region with Standby
+  </a>
+  
+    <nav class="md-nav" aria-label="Single Region with Standby">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-single-region-with-standby-workloads" class="md-nav__link">
+    Key Requirements for Single Region with Standby workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-region" class="md-nav__link">
+    Single Region
+  </a>
+  
+    <nav class="md-nav" aria-label="Single Region">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements-for-single-region-workloads" class="md-nav__link">
+    Key Requirements for Single Region workloads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sound-recovery-practices" class="md-nav__link">
+    Sound Recovery Practices
+  </a>
+  
+    <nav class="md-nav" aria-label="Sound Recovery Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-service-recovery" class="md-nav__link">
+    Best practices for service recovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-corresponding-architecture-practices" class="md-nav__link">
+    Recommended corresponding Architecture Practices
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended corresponding Architecture Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-reviews" class="md-nav__link">
+    Design Reviews
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-approval" class="md-nav__link">
+    Design Approval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-exceptions" class="md-nav__link">
+    Architecture Exceptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="cloud-resiliency-guidance">Cloud Resiliency Guidance</h1>
+<div class="toc">
+<ul>
+<li><a href="#cloud-resiliency-guidance">Cloud Resiliency Guidance</a><ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#guiding-principles">Guiding Principles</a></li>
+<li><a href="#goals-objectives">Goals &amp; Objectives</a></li>
+<li><a href="#document-scope">Document Scope</a><ul>
+<li><a href="#out-of-scope">Out of Scope</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#resiliency-capabilities-overview">Resiliency Capabilities Overview</a></li>
+<li><a href="#aws-global-infrastructure-design">AWS Global Infrastructure Design</a><ul>
+<li><a href="#availability-zones">Availability Zones</a></li>
+<li><a href="#aws-regions">AWS Regions</a></li>
+<li><a href="#aws-service-fault-domains">AWS Service Fault Domains</a></li>
+<li><a href="#component-scaling">Component Scaling</a></li>
+</ul>
+</li>
+<li><a href="#overview-of-key-services">Overview of Key Services</a><ul>
+<li><a href="#route-53">Route 53</a><ul>
+<li><a href="#route-53-control-plane-vs-data-plane">Route 53 Control Plane vs. Data Plane</a></li>
+</ul>
+</li>
+<li><a href="#health-checks">Health Checks</a></li>
+<li><a href="#service-discovery">Service Discovery</a></li>
+<li><a href="#application-load-balancing">Application Load Balancing</a></li>
+<li><a href="#global-load-balancing">Global Load Balancing</a></li>
+</ul>
+</li>
+<li><a href="#potential-recovery-limitations">Potential Recovery Limitations</a><ul>
+<li><a href="#api-call-throttling">API Call Throttling</a></li>
+<li><a href="#availability-of-ec2-instance-types">Availability of EC2 instance types</a></li>
+<li><a href="#service-quotas">Service Quotas</a></li>
+<li><a href="#state-management">State Management</a></li>
+<li><a href="#service-recovery-testing">Service Recovery Testing</a></li>
+</ul>
+</li>
+<li><a href="#resiliency-requirements-patterns">Resiliency Requirements &amp; Patterns</a><ul>
+<li><a href="#component-resiliency">Component Resiliency</a></li>
+<li><a href="#resiliency-patterns">Resiliency Patterns</a></li>
+<li><a href="#globally-resilient">Globally Resilient</a><ul>
+<li><a href="#key-requirements-for-globally-resilient-workloads">Key Requirements for Globally Resilient workloads</a></li>
+<li><a href="#example-globally-resilient-single-page-app-spa">Example Globally Resilient Single Page App (SPA)</a></li>
+</ul>
+</li>
+<li><a href="#regionally-resilient">Regionally Resilient</a><ul>
+<li><a href="#key-requirements-for-regionally-resilient-workloads">Key Requirements for Regionally Resilient workloads</a></li>
+<li><a href="#example-single-page-app-spa">Example Single Page App (SPA)</a></li>
+<li><a href="#example-service-to-service">Example Service to Service</a></li>
+<li><a href="#example-regionally-resilient-kubernetes-application">Example Regionally Resilient Kubernetes Application</a></li>
+</ul>
+</li>
+<li><a href="#regionally-resilient-with-failover">Regionally Resilient with Failover</a><ul>
+<li><a href="#key-requirements-for-regionally-resilient-manual-failover-workloads">Key Requirements for Regionally Resilient (Manual Failover) workloads</a></li>
+</ul>
+</li>
+<li><a href="#single-region-with-standby">Single Region with Standby</a><ul>
+<li><a href="#key-requirements-for-single-region-with-standby-workloads">Key Requirements for Single Region with Standby workloads</a></li>
+</ul>
+</li>
+<li><a href="#single-region">Single Region</a><ul>
+<li><a href="#key-requirements-for-single-region-workloads">Key Requirements for Single Region workloads</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sound-recovery-practices">Sound Recovery Practices</a><ul>
+<li><a href="#best-practices-for-service-recovery">Best practices for service recovery</a></li>
+</ul>
+</li>
+<li><a href="#recommended-corresponding-architecture-practices">Recommended corresponding Architecture Practices</a><ul>
+<li><a href="#design-reviews">Design Reviews</a></li>
+<li><a href="#design-approval">Design Approval</a></li>
+<li><a href="#architecture-exceptions">Architecture Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>Cloud resiliency refers to the architecture design practices that contribute to applications, running in AWS, that are resilient to service disrupting events. Service disrupting events can include: 
+* Regional outages 
+* Service instability 
+* Platform instability 
+* Control plane instability 
+* Connectivity issues </p>
+<h3 id="guiding-principles">Guiding Principles</h3>
+<p>Southwest Airlines critical business and operations functions depend on applications running in cloud environments hosted by AWS. In order to satisfy Southwest business function requirements and meet availability and recoverability targets, specific guidance and reviews must be in place to support positive resiliency outcomes.  </p>
+<p>Recently, there have been service disruptions, within the AWS platforms and infrastructure, that have negatively impacted technology services that support Southwest Airlines business and operations. </p>
+<p>Analysis of these events has revealed underlying design flaws that should be addressed in existing designs and new designs.</p>
+<h3 id="goals-objectives">Goals &amp; Objectives</h3>
+<p>The objectives for this guidance on resiliency are to: 
+1. Evaluate and understand potential issues and <a href="#resiliency-capabilities-overview">capabilities</a> that contribute or detract from the resiliency of applications running in AWS 
+2. Provide <a href="#resiliency-requirements--patterns">guidance</a> for resiliency that maps to desired business outcomes 
+3. Establish <a href="#resiliency-requirements--patterns">architectural patterns</a> that clearly describe how applications can be designed to avoid unnecessary outages 
+4. Describe best practices for implementing a <a href="#best-practices-for-service-recovery">service recovery and testing</a> program
+4. Recommended changes to <a href="#recommended-corresponding-architecture-practices">architecture practices</a> to enhance focus on application resiliency </p>
+<h3 id="document-scope">Document Scope</h3>
+<h4 id="out-of-scope">Out of Scope</h4>
+<p>The following topics are considered out of scope for this Architecture Design Document: 
+* While health monitoring may be covered as a topic to manage component failures, general observability and dashboarding of application health is outside the scope of this document. 
+* The resiliency of data platforms, including operational, analytical, and streaming data platforms will be covered in Cloud Data Resiliency Guidance. </p>
+<h2 id="resiliency-capabilities-overview">Resiliency Capabilities Overview</h2>
+<p>The following capabilities are relevant to resiliency in cloud. A brief description and discussion of relevance is included, but full documentation of these capabilities is beyond the scope of this document. </p>
+<h2 id="aws-global-infrastructure-design">AWS Global Infrastructure Design</h2>
+<p>AWS provides globally available infrastructure for use by their customers. That infrastructure is comprised of data centers, Availability Zones (AZ)s, and Regions. The most up to date information on AZs and Regions can always be found on the <a href="https://aws.amazon.com/about-aws/global-infrastructure/regions_az/">AWS Website</a>.</p>
+<h3 id="availability-zones">Availability Zones</h3>
+<p>An Availability Zone (AZ) is one or more discrete data centers with redundant power, networking, and connectivity in an AWS Region. For context, an AZ is the equivalent of the SWA SDC or WNDC data center. </p>
+<p><img alt="Example Region with 3 Availability Zones" src="../images/Cloud%20Resiliency%20ADD%20Diagrams%20AZs.svg" /></p>
+<h3 id="aws-regions">AWS Regions</h3>
+<p>AWS has the concept of a Region, which is a physical location around the world where they cluster data centers. Each group of logical data centers are referenced as an Availability Zone. Each AWS Region consists of multiple, isolated, and physically separate AZs within a geographic area.  </p>
+<p><img alt="AWS North America Regions" src="../images/Cloud%20Resiliency%20ADD%20Diagrams%20NA%20Regions.png" /></p>
+<h3 id="aws-service-fault-domains">AWS Service Fault Domains</h3>
+<p>Solution resiliency is a byproduct of individual service resiliency. The first aspect of any solution that should be examined is the resiliency of each component that the solution is comprised of. The table below describes patterns of component resiliency that are used throughout this guidance document. </p>
+<table>
+<thead>
+<tr>
+<th align="left">Service Domain</th>
+<th align="left">Description</th>
+<th align="left">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global</td>
+<td align="left">These services are available even if a Region fails</td>
+<td align="left">Route 53, IAM, CloudFront</td>
+</tr>
+<tr>
+<td align="left">Region</td>
+<td align="left">These services are available even if an Availability Zone fails</td>
+<td align="left">S3, KMS, Lambda</td>
+</tr>
+<tr>
+<td align="left">Availability Zone</td>
+<td align="left">These services will fail if an Availability Zone fails. Additional steps should be taken to provide for regional resiliency</td>
+<td align="left">EC2, EBS, EFS</td>
+</tr>
+<tr>
+<td align="left">Instance</td>
+<td align="left">An instance may fail if a platform within an Availability Zone fails. Additional steps should be taken to examine and understand the availability and recovery characteristics of the platform that the instance runs within.</td>
+<td align="left">EKS, Container</td>
+</tr>
+</tbody>
+</table>
+<h3 id="component-scaling">Component Scaling</h3>
+<p>Scaling is a key consideration when planning for application and component level resiliency. Scaling considerations need to balance the need to control costs with those of ensuring resiliency in the event of a failure. For services with critical business functions, (Tier 0, Tier 1), scaling events should be avoided during a failover event, as contention for <a href="#control-plane-vs-data-plane">Control Plane</a> functionality and resources can cause scaling events to fail. For these reasons it is important to tailor the scaling of application components to the overall desired availability. The table below maps component level scaling to the component resiliency patterns above.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component Resiliency</strong></th>
+<th align="left"><strong>Scaling Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global Component</td>
+<td align="left">- Scaling managed by AWS</td>
+</tr>
+<tr>
+<td align="left">Active / Active Component</td>
+<td align="left">- Components scaled to support 100% of the application workload in a single region</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with Automated Recovery</td>
+<td align="left">- Active region scaled to support 100% of the application workload <br> - Passive region is also scaled to support 100% of the application workload. This prevents the passive region from failing to service requests adequately during a failover scenario.</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with Manual Recovery</td>
+<td align="left">- Active region scaled to support 100% of the application workload <br> - Passive region is also scaled to support 100% of the application workload. This prevents the passive region from failing to service requests adequately during a failover scenario.</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">- Active region scaled to support 100% of the application workload</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">- Single region scaled to support 100% of the application workload</td>
+</tr>
+</tbody>
+</table>
+<h2 id="overview-of-key-services">Overview of Key Services</h2>
+<p>In addition to the AWS Infrastructure Design, there are key AWS services and capabilities that, when used correctly, can contribute to the resiliency of applications.  </p>
+<h3 id="route-53">Route 53</h3>
+<p>Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS and can also be used to route users to infrastructure outside of AWS. Below are features of Route53 that are relevant for resiliency and failover: </p>
+<ul>
+<li>DNS Health Checks – Allows you to monitor the health of your resources such as web servers and email servers. You can optionally configure Amazon CloudWatch alarms for your health checks, so that you receive notification when a resource becomes unavailable. </li>
+<li>DNS Failover -  Along with DNS Health checks, you can configure DNS failover so that Route 53 will route your traffic from an unhealthy resource to a healthy resource.  You can choose the <strong>active-active</strong> failover configuration when you want all of your resources to be available the majority of the time or <strong>active-passive</strong> when you want a primary resource or group of resources to be available the majority of the time and you want a secondary resource or group of resources to be on standby in case all the primary resources become unavailable.</li>
+<li>Traffic Flow - Makes it easy for you to manage traffic globally through a variety of routing policies, including Latency Based Routing, Geo DNS, Geoproximity, and Weighted Round Robin—all of which can be combined with DNS Failover in order to enable a variety of low-latency, fault-tolerant architectures. For more information on routing policies see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">AWS Routing Policies</a>  </li>
+<li>Using Amazon Route 53 Traffic Flow’s simple visual editor, you can easily manage how your end-users are routed to your application’s endpoints—whether in a single AWS region or distributed around the globe.</li>
+<li>Application Recover Controller -  Gives you insights into whether your applications and resources are ready for recovery, and helps you manage and coordinate failover using readiness check and routing control features </li>
+</ul>
+<h4 id="route-53-control-plane-vs-data-plane">Route 53 Control Plane vs. Data Plane</h4>
+<p>Understanding the different service capabilities of Route 53 and how those capabilities leverage the control plane vs the data plane can be crucial to understanding overall resiliency of Route 53 and how the it will respond in failure and recovery situations. For example, you <strong>can</strong> rely on the Amazon Route 53 data plane to reliably route DNS queries based on health checks. Updating Route 53 routing policies, DNS weights, and records, however, uses the control plane, and <strong>cannot</strong> be relied upon for recovery. When implementing recovery or mitigation responses to potentially resiliency-impacting events, using control plane operations can lower the overall resiliency of your architecture. </p>
+<ul>
+<li><strong>Control Plane</strong> The control plane is used to configure services. For Route 53, the control plane has a lower availability design goal than the data plane. The control plane should not be relied upon for service recovery and application resiliency for highly available services in tiers 1 and 2. </li>
+<li><strong>Data Plane</strong> The data plane is used to deliver services. The data plane maintains a much higher uptime commitment. The data plane should be the method by which services instrument high availability. Route 53 health checks are an example of a data plane capability that can aid in application services maintaining high availability. </li>
+</ul>
+<h3 id="health-checks">Health Checks</h3>
+<p>Health checks are a way of asking a service whether or not it is capable of performing work successfully. Examples of health checks include, but are not limited to: </p>
+<ol>
+<li>Health checks integrated into Route 53 DNS services, which validate underlying service health</li>
+<li>Load balancers polling services periodically to determine which servers it is safe to direct traffic to. </li>
+<li>A service that checks its own health before pulling messages off a queue. </li>
+<li>Monitoring agents that determine the health of a service and raise events or remove a service from service discovery in the event of service degradation. </li>
+</ol>
+<p>Health checks are a critical part of the design of resilient solutions, as they anticipate and isolate failures, thereby preserving service availability. Health checks need to be designed to mitigate component level failures, but must also take into account the design of the entire solution. </p>
+<h3 id="service-discovery">Service Discovery</h3>
+<p>Service Discovery is the process of dynamically detecting services available on a network. Resiliency of an application can be enhanced through the use of service discovery. Two models of service discovery exist, server-side and client-side service discovery. </p>
+<p>In a server-side service discovery model, the server updates its availability with a load-balancer, DNS, or similar system to route traffic to available service endpoints. </p>
+<p><img alt="Fig 1: Server Side Service Discovery" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Service%20Discovery%20fig%201.drawio.png" /></p>
+<p>In a client-side service discovery model, the client queries a service registry to determine available service endpoints and connects to the appropriate one. </p>
+<p><img alt="Fig 2: Client Side Service Discovery" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Service%20Discovery%20fig%202.drawio.png" /></p>
+<p>A full discussion of service discovery is beyond the scope of this design document, and will require a separate design. </p>
+<h3 id="application-load-balancing">Application Load Balancing</h3>
+<p>Application Load Balancers allow for the distribution of incoming requests across service endpoints, while allowing for intelligent health checks, and load distribution algorithms. A limitation of AWS Application Load Balancers is that it they are a regional service, and can only control automated failover across services running in more than one Availability Zone.</p>
+<h3 id="global-load-balancing">Global Load Balancing</h3>
+<p>Global load balancing refers to the ability to distribute service requests across a global distribution of service endpoints. Global load balancing in AWS is managed by <a href="#route-53">Route 53</a> and includes a variety of routing policies, including Latency Based Routing, Geo DNS, Geoproximity, and Weighted Round Robin—all of which can be combined with DNS Failover in order to enable a variety of low-latency, fault-tolerant architectures.</p>
+<h2 id="potential-recovery-limitations">Potential Recovery Limitations</h2>
+<p>In the event of a component or application recovery, certain conditions can occur that can limit the ability of the system to self-heal or limit manual recovery efforts. It is important to understand these limitations and design the application and component recovery accordingly.</p>
+<h3 id="api-call-throttling">API Call Throttling</h3>
+<p>Especially in regional recovery scenarios, API throttling or contention, can limit the ability for even automated recovery functions to successfully recover services to a functioning state. This can be further exacerbated when attempting to use the <a href="#control-plane-vs-data-plane">Control Plane</a> for recovery, where overall availability may not match SWA recovery requirements.</p>
+<h3 id="availability-of-ec2-instance-types">Availability of EC2 instance types</h3>
+<p>In rare circumstances, although increased potential exists during a regional outage, contention for specific EC2 instance types can result in the inability to rapidly provision new instances. Like API calls, this can be exacerbated by Control Plane issues that slow down or prevent instance provisioning events. For this reason, scaling and instance provisioning should be tailored to the availability expectations of the application. Please refer to the <a href="#component-scaling">Component Scaling</a> section of this guidance.</p>
+<h3 id="service-quotas">Service Quotas</h3>
+<p>Service quotas can impact application availability and should be managed using a process that balances cost implications of escalating services quotas yet mitigates potential impacts of restricting application scaling or performance. In particular, service quotas can be particularly impactful in failover events where there is increased potential for exceeding currently defined service limits or service quotas. </p>
+<p>AWS Service Quotas best practices for reliability, from the AWS Well-Architected Framework can be found here, and include: 
+* Aware of service quotas and constraints: You are aware of your default quotas and quota increase requests for your workload architecture. You additionally know which resource constraints, such as disk or network, are potentially impactful. 
+* Manage service quotas across accounts and regions: If you are using multiple AWS accounts or AWS Regions, ensure that you request the appropriate quotas in all environments in which your production workloads run. 
+* Accommodate fixed service quotas and constraints through architecture: Be aware of unchangeable service quotas and physical resources, and architect to prevent these from impacting reliability. 
+* Monitor and manage quotas: Evaluate your potential usage and increase your quotas appropriately allowing for planned growth in usage. 
+* Automate quota management: Implement tools to alert you when thresholds are being approached. By using AWS Service Quotas APIs, you can automate quota increase requests. 
+* Ensure that a sufficient gap exists between the current quotas and the maximum usage to accommodate failover: When a resource fails, it may still be counted against quotas until it is successfully terminated. Ensure that your quotas cover the overlap of all failed resources with replacements before the failed resources are terminated. You should consider an Availability Zone failure when calculating this gap. </p>
+<h3 id="state-management">State Management</h3>
+<p>A thorough understanding of the application's dependence on state is necessary to thoroughly understand the ability to successfully recover the application and meet the Recovery Point Objectives of the application. Recovery from failures, including the restoration of state is something that must be tested.</p>
+<h3 id="service-recovery-testing">Service Recovery Testing</h3>
+<p>The process of full service recovery must be documented and tested regularly. Additionally, depending on business criticality, Teams should have the appropriate level of automated recovery in place. The table under <a href="#resiliency-requirements--patterns">Resiliency Requirements</a> below describes service recovery and testing requirements. These tests should be run as part of the certification and deployment process, but also run under load, where real-world transactions will stress and expose unexpected situations.</p>
+<h2 id="resiliency-requirements-patterns">Resiliency Requirements &amp; Patterns</h2>
+<h3 id="component-resiliency">Component Resiliency</h3>
+<p>Components running only in a single Availability Zone can often times be designed to have a regional or even global resiliency through different configuration patterns. The table below describes patterns of component resiliency that are used throughout this guidance document. </p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Option</strong></th>
+<th align="left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global Component</td>
+<td align="left">- Regional resiliency managed by AWS. <br> - Expected to be globally available, and should be used preferentially. <br> - Care must be taken to understand what aspects of a global component, like Route 53, is actually globally available.</td>
+</tr>
+<tr>
+<td align="left">Active / Active Component</td>
+<td align="left">- Component service requests are sent to all regions and can be processed independent of other regions.  <br> - Care must be taken to configure these services correctly and to understand any required state management. (Either does not depend on state, can use an eventual consistency model, or uses a synchronous replication of state.)  <br> -Care must also be taken to understand event sequencing requirements, which can cause transactional or data integrity issues within the larger solution context.</td>
+</tr>
+<tr>
+<td align="left">Active / Passive Component with Automated Recovery</td>
+<td align="left">- Component service requests are sent to only one region at a time <br> - Deep health checks are configured to assess regional component health, and recovery automated in the AWS data plane <br> - Component recovery and failback from component recovery must be thoroughly tested to eliminate any issues with data integrity</td>
+</tr>
+<tr>
+<td align="left">Active / Passive Component with Manual Recovery</td>
+<td align="left">- Component service requests are sent to only one region <br> - Health checks are configured to assess regional component health <br> - Recovery mechanisms are in place that can be executed without use of the AWS control plane</td>
+</tr>
+<tr>
+<td align="left">Active / Standby Component</td>
+<td align="left">- Component service requests are sent to only one region <br> - Health checks are in place to assess regional component health <br> - Processes are in place and have been tested to active standby region components</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">- Component service requests are sent to only one region <br> - Regional outages will result in loss of service until the region is recovered</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resiliency-patterns">Resiliency Patterns</h3>
+<p>The following resiliency patterns describe the high level characteristics as well as supported Application recovery Hierarchy tiers. Further details can be found within the following documentation of each resiliency pattern, including examples.</p>
+<table width="100%">
+<tr>
+<th width="20%"><b>Resiliency Pattern</b></th>
+<th width="60%"><b>Characteristics</b></th>
+<th width="20%"><b>Supported ARH Tiers</b></th>
+</tr>
+<tr>
+<td>
+<a href="#globally-resilient">Globally Resilient</a>
+</td><td>
+- Application components run globally and are resilient to issues impacting more than one region <br> 
+- Service recovery is automatic and self-healing
+</td><td>
+Tier 0, Tier 1 (provided ltency requirements of the application can be met.)
+</tr>
+<tr>
+<td>
+<a href="#regionally-resilient">Regionally Resilient</a>
+</td><td>
+- Application components run active / active across 2 regions and are resilient to issues impacting a single region<br> 
+- Data is synchronous across regions <br> 
+- Health checks proactively monitor for failed components and isolate failures<br> 
+- Service recovery is automatic and self-healing
+</td><td>
+Tier 0, Tier 1
+</tr>
+<tr>
+<td>
+<a href="#regionally-resilient-with-failover">Regionally Resilient with Failover</a>
+</td><td>
+- Application components run active / passive across 2 regions <br> 
+- Data replication may be asynchronous <br> 
+- Health checks identify failed components, but recovery may be manual in some or all cases
+</td><td>
+Tier 2
+</tr>
+<tr>
+<td>
+<a href="#single-region-with-standby">Single Region with Standby</a>
+</td><td>
+- Application components run active / standby across 2 regions <br> 
+- Data replication may be asynchronous <br> 
+- Health checks identify failures <br> 
+- Service recovery requires starting the application in a standby region
+</td><td>
+Tier 3+
+</tr>
+<tr>
+<td>
+<a href="#single-region">Single Region</a>
+</td><td>
+- Application components run in a single region <br> 
+- Failures are detected by health checks <br> 
+- Services are recovered once the region has been restored to full operations
+</td><td>
+Tier 4
+</tr>
+</table>
+
+<h3 id="globally-resilient">Globally Resilient</h3>
+<p>Globally resilient architectures extend the <a href="#regionally-resilient">Regionally Resilient pattern</a> to include global dispersion of workloads. This means that globally resilient applications are deployed and active in at least 3 regions, across 2 continents, and can withstand failures in more than one region.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component resiliency pattern</strong></th>
+<th align="left"><strong>Preference</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global component</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Active component</td>
+<td align="left">Allowed, with design review</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with automated health check and recovery</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with manual recovery</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">Not Allowed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-requirements-for-globally-resilient-workloads">Key Requirements for Globally Resilient workloads</h4>
+<p>The following table shows key requirements for Globally Resilient workloads.
+| <strong>Criteria</strong> | <strong>Requirement</strong> |
+| :------- | :------- |
+| Regional Availability | All services are running in <strong>at least 3 regions</strong> |
+| Availablility Zones | Where applicable, all services are running in <strong>at least 3 AZs per region</strong> |
+| Compute | <strong>Require serverless</strong> compute, due to stateless nature and auto-scaling |
+| Scaling | Application scaled to support <strong>100%</strong> of the workload in a single region |
+| Health Checks | Health Checks have been implemented to detect failures and <em>must</em> leverage automated failover to redirect traffic away from the failed component. |
+| Failover Control | Failover must leverage the data plane of the AWS service. <strong>Failover cannot require the use of AWS Console or CICD Tools.</strong> | 
+| Monitoring | All components have health monitoring instrumented in an approved oberservability platform |</p>
+<h4 id="example-globally-resilient-single-page-app-spa">Example Globally Resilient Single Page App (SPA)</h4>
+<p><img alt="Globally Resilient Single Page App" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Global%20Resilience.drawio.png" /></p>
+<p>Integrations between components is a critical aspect of achieving true regional resilience.The diagram above depicts a basic pattern for Single Page Apps, with static content being served from S3, and dynamic content being served from one or more lambdas. CloudFront and Route 53 manage traffic routing avoiding any simgle point of failure. Traffic routing at each step is dynamic and can be routed to least latent and available services.
+* The pattern above leverages CloudFront, <a href="#route-53">Route 53</a>, S3 replication and API Gateway to create a highly resilient solution.
+* All services being used have health checks in place to dynamically route traffic to all regions.
+* Services like lambda and S3 are managed by AWS and do require explicit scaling configurations.</p>
+<h3 id="regionally-resilient">Regionally Resilient</h3>
+<p>Regionally resilient architectures attempt to eliminate any single failure points within an application across at least 2 regions. Designs need to examine each component to ensure that regional resilience is accounted for. The following component resiliency patterns can be leveraged to design for regionally resilient solutions. </p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component resiliency pattern</strong></th>
+<th align="left"><strong>Preference</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global component</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Active component</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with automated health check and recovery</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with manual recovery</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">Not Allowed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-requirements-for-regionally-resilient-workloads">Key Requirements for Regionally Resilient workloads</h4>
+<p>The following table shows key requirements for Regionally Resilient workloads.
+| <strong>Criteria</strong> | <strong>Requirement</strong> |
+| :------- | :------- |
+| Regional Availability | All services are running in <strong>at least 2 regions</strong> |
+| Availablility Zones | Where applicable, all services are running in <strong>at least 3 AZs per region</strong> |
+| Compute | <em>Prefer serverless</em> compute, due to stateless nature and auto-scaling |
+| Scaling | Application scaled to support <strong>100%</strong> of the workload in a single region |
+| Health Checks | Health Checks have been implemented to detect failures and <strong>automatically redirect traffic away from the failed component</strong>. |
+| Failover Control | Failover must leverage the data plane of the AWS service. <strong>Failover cannot require the use of AWS Console or CICD Tools.</strong> | 
+| Monitoring | All components have health monitoring instrumented in an approved oberservability platform |</p>
+<h4 id="example-single-page-app-spa">Example Single Page App (SPA)</h4>
+<p><img alt="Regionally Resilient pattern for Single Page Apps" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Active%20Active%20Serverless%20SPA.drawio.png" /></p>
+<p>Integrations between components is a critical aspect of achieving true regional resilience.The diagram above depicts a basic pattern for Single Page Apps, with static content being served from S3, and dynamic content being served from one or more lambdas. </p>
+<p>Key guidance for Regionally Resilient Single Page Apps:
+* CloudFront and Route 53 manage traffic routing avoiding any simgle point of failure. Traffic routing at each step is dynamic and can be routed to least latent and available services.
+* The pattern above leverages CloudFront, <a href="#route-53">Route 53</a>, S3 replication and API Gateway to create a highly resilient solution.
+* All services being used have health checks in place to dynamically route traffic to both regions.
+* Services like lambda and S3 are managed by AWS and do require explicit scaling configurations.</p>
+<h4 id="example-service-to-service">Example Service to Service</h4>
+<p><img alt="Regionally Resilient pattern for Service to Service" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Active%20Active%20S2S.drawio.png" /></p>
+<p>Key guidance for Regionally Resilient Service APIs:
+* CloudFront and Route 53 manage traffic routing avoiding any simgle point of failure. Traffic routing at each step is dynamic and can be routed to least latent and available services.
+* The pattern above leverages CloudFront, <a href="#route-53">Route 53</a>, and API Gateway to create a highly resilient solution.
+* All services being used have health checks in place to dynamically route traffic to both regions.
+* Services like lambda are managed by AWS and do require explicit scaling configurations.</p>
+<h4 id="example-regionally-resilient-kubernetes-application">Example Regionally Resilient Kubernetes Application</h4>
+<p><img alt="Regionally Resilient pattern for Kubernetes" src="../images/Cloud%20Resiliency%20ADD%20Diagrams-Active%20Active%20Ingress%20k8s.drawio.png" /></p>
+<p>Key points for Regionally Resilient EKS container based applications:
+* EKS clusters exist within a single region and cannot span regions. Each region will have a separate EKS cluster.
+* EKS cluster nodes should be distributed evenly across at least 3 AZs
+* Application services, running as containers within EKS, should be evenly distributed across EKS cluster nodes and at least 3 AZs
+* <a href="#route-53">Route 53</a> health checks determine health of each region and distribute traffic accordingly
+* Health monitoring within EKS isolates and restarts unhealth nodes and container workloads, maintaining a minimum of 3 healthy AZs at all times 
+* For Regionally Resilient workloads, capacity of each regional EKS cluster should be scaled to support 100% of the application workload at all times. Scaling of workloads should not be part of the recovery design for the Regionally Resilient pattern, as resource contention and control plane issues can hinder scaling events during regional recovery activities.</p>
+<h3 id="regionally-resilient-with-failover">Regionally Resilient with Failover</h3>
+<p>Description</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component resiliency pattern</strong></th>
+<th align="left"><strong>Preference</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global component</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Active component</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with automated health check and recovery</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with manual recovery</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">Not Allowed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-requirements-for-regionally-resilient-manual-failover-workloads">Key Requirements for Regionally Resilient (Manual Failover) workloads</h4>
+<p>The following table shows key requirements for Regionally Resilient workloads.
+| <strong>Criteria</strong> | <strong>Requirement</strong> |
+| :------- | :------- |
+| Regional Availability | All services are running in <strong>at least 2 regions</strong> |
+| Availablility Zones | Where applicable, all services are running in <strong>at least 3 AZs per region</strong> |
+| Compute | <em>Prefer serverless</em> compute, due to stateless nature and auto-scaling |
+| Scaling | Application scaled to support <strong>100%</strong> of the workload in a single region |
+| Health Checks | Health Checks have been implemented to detect failures and <em>may</em> leverage automated failover to redirect traffic away from the failed component. |
+| Failover Control | Failover must leverage the data plane of the AWS service. <strong>Failover cannot require the use of AWS Console or CICD Tools.</strong> | 
+| Monitoring | All components have health monitoring instrumented in an approved oberservability platform |</p>
+<h3 id="single-region-with-standby">Single Region with Standby</h3>
+<p>Description</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component resiliency pattern</strong></th>
+<th align="left"><strong>Preference</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global component</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Active component</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with automated health check and recovery</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with manual recovery</td>
+<td align="left">Preferred</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">Not Allowed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-requirements-for-single-region-with-standby-workloads">Key Requirements for Single Region with Standby workloads</h4>
+<p>The following table shows key requirements for Regionally Resilient workloads.
+| <strong>Criteria</strong> | <strong>Requirement</strong> |
+| :------- | :------- |
+| Regional Availability | All services are running in <strong>at least 2 regions</strong> |
+| Availablility Zones | Where applicable, all services are running in <strong>at least 3 AZs per region</strong> |
+| Compute | <em>Prefer serverless</em> compute, due to stateless nature and auto-scaling |
+| Scaling | Application scaled to support <strong>100%</strong> of the workload in a single region |
+| Health Checks | Health Checks have been implemented to detect failures and <strong>automatically redirect traffic away from the failed component</strong>. |
+| Failover Control | Failover must leverage the data plane of the AWS service. <strong>Failover cannot require the use of AWS Console or CICD Tools.</strong> | 
+| Monitoring | All components have health monitoring instrumented in an approved oberservability platform |</p>
+<h3 id="single-region">Single Region</h3>
+<p>Description</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component resiliency pattern</strong></th>
+<th align="left"><strong>Preference</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Global component</td>
+<td align="left">Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Active component</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with automated health check and recovery</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Passive with manual recovery</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Active / Standby</td>
+<td align="left">Not Allowed</td>
+</tr>
+<tr>
+<td align="left">Single Region</td>
+<td align="left">Preferred</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-requirements-for-single-region-workloads">Key Requirements for Single Region workloads</h4>
+<p>The following table shows key requirements for Regionally Resilient workloads.
+| <strong>Criteria</strong> | <strong>Requirement</strong> |
+| :------- | :------- |
+| Regional Availability | All services are running in <strong>at least 2 regions</strong> |
+| Availablility Zones | Where applicable, all services are running in <strong>at least 3 AZs per region</strong> |
+| Compute | <em>Prefer serverless</em> compute, due to stateless nature and auto-scaling |
+| Scaling | Application scaled to support <strong>100%</strong> of the workload in a single region |
+| Health Checks | Health Checks have been implemented to detect failures and <strong>automatically redirect traffic away from the failed component</strong>. |
+| Failover Control | Failover must leverage the data plane of the AWS service. <strong>Failover cannot require the use of AWS Console or CICD Tools.</strong> | 
+| Monitoring | All components have health monitoring instrumented in an approved oberservability platform |</p>
+<h2 id="sound-recovery-practices">Sound Recovery Practices</h2>
+<h3 id="best-practices-for-service-recovery">Best practices for service recovery</h3>
+<ol>
+<li><strong>Service preference:</strong> When designing applications, prefer AWS Global and AWS Regional services to minimize recovery effort and control scaling costs. </li>
+<li><strong>Prefer serverless:</strong> This applies to compute workloads as well. Service design should prefer serverless designs over alternatives, as serverless designs require externalizing state, eliminate scaling issues, and </li>
+<li><strong>Start with components:</strong> Start by understanding how each component will behave in a failure scenario, and understand and document recovery processes.</li>
+<li><strong>Understand data resiliency:</strong> Data resiliency is a key part of understanding the ability to effectively recover any service. Key data dependencies, like the data consistency model, must be thoroughly understood. Data replication, backup, and recovery processes play a critical role in overall system recovery. Separate Data Resiliency guidance will address the specific aspects of data resiliency.</li>
+<li><strong>Prefer automation:</strong> Service recovery automaton is a key non-functional requirement for services and should be part of the architecture design process.
+a. For known use cases, automate intelligent and deep health checks that uncover service issues and isolate failures.
+b. To raise overall service availability, extend automation to self-healing activities that remove human interaction. Required for some <a href="#resiliency-patterns">resiliency patterns</a>.</li>
+<li><strong>Test often:</strong> Test failure scenarios frequently. Build automated integration tests that validate heath checks and recovery solutions. Perform thought experiments to uncover new scenarios that may lead to failures.</li>
+<li><strong>Assume the worst:</strong> Assume everything will fail eventually and be sure that those failure scenarios have been tested and behave as expected.</li>
+</ol>
+<h2 id="recommended-corresponding-architecture-practices">Recommended corresponding Architecture Practices</h2>
+<h3 id="design-reviews">Design Reviews</h3>
+<h3 id="design-approval">Design Approval</h3>
+<h3 id="architecture-exceptions">Architecture Exceptions</h3>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../API%20Guidance/Public_API_Guidance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Public / Private API Guidance" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Public / Private API Guidance
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1068 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Public / Private API Guidance - Architecture Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#public-private-api-guidance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Architecture Docs" class="md-header__button md-logo" aria-label="Architecture Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Architecture Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Public / Private API Guidance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Architecture Docs" class="md-nav__button md-logo" aria-label="Architecture Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Architecture Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Architecture Documentation Demo
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          ArchitectureDocsOverview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ArchitectureDocsOverview" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          ArchitectureDocsOverview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ArchitectureDocsOverview/" class="md-nav__link">
+        Architecture Docs Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Enterprise Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Enterprise Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Enterprise Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Enterprise_Architecture/" class="md-nav__link">
+        3. Enterprise Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Instructions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Instructions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Instructions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Instructions/MarkdownSyntax/" class="md-nav__link">
+        MarkdownSyntax
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Overarching Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Overarching Guidance" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Overarching Guidance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Overarching_Guidance/" class="md-nav__link">
+        5. Overarching Guidance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Solution Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Solution Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Solution Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Solution_Architecture/PDFtest/" class="md-nav__link">
+        Testing the embedding of a PDF
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Technical Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Technical Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Technical Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          API Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Guidance" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          API Guidance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Public / Private API Guidance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Public / Private API Guidance
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    Guiding Principles
+  </a>
+  
+    <nav class="md-nav" aria-label="Guiding Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    Goals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    Out of Scope
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#approved-patterns" class="md-nav__link">
+    Approved Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Approved Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-apis" class="md-nav__link">
+    Public APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Public APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-api-using-cloudfront" class="md-nav__link">
+    Public API using CloudFront
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-api-using-akamai" class="md-nav__link">
+    Public API using Akamai
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#private-apis" class="md-nav__link">
+    Private APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Private APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricting-access-with-authentication" class="md-nav__link">
+    Restricting access with Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricting-access-with-aws-waf" class="md-nav__link">
+    Restricting access with AWS WAF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-single-page-app" class="md-nav__link">
+    Example Single Page App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-controls" class="md-nav__link">
+    Architecture Controls
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Cloud Resiliency
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cloud Resiliency" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Cloud Resiliency
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud%20Resiliency/Cloud_Resiliency_Guidance/" class="md-nav__link">
+        Cloud Resiliency Guidance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    Guiding Principles
+  </a>
+  
+    <nav class="md-nav" aria-label="Guiding Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    Goals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    Out of Scope
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#approved-patterns" class="md-nav__link">
+    Approved Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Approved Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-apis" class="md-nav__link">
+    Public APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Public APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-api-using-cloudfront" class="md-nav__link">
+    Public API using CloudFront
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-api-using-akamai" class="md-nav__link">
+    Public API using Akamai
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#private-apis" class="md-nav__link">
+    Private APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="Private APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricting-access-with-authentication" class="md-nav__link">
+    Restricting access with Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricting-access-with-aws-waf" class="md-nav__link">
+    Restricting access with AWS WAF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-single-page-app" class="md-nav__link">
+    Example Single Page App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-controls" class="md-nav__link">
+    Architecture Controls
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="public-private-api-guidance">Public / Private API Guidance</h1>
+<h2 id="guiding-principles">Guiding Principles</h2>
+<p>Application Programming Interfaces (APIs) are a critical part of almost any application design. Guidance to date for the implementation of APIs in AWS, has been inconsistent and poorly aligned with AWS best practices. This guidance will address those issues as it relates to Public APIs as well as provide guidance on securing Public APIs to make them private.</p>
+<h3 id="goals">Goals</h3>
+<p>Provide architecture guidance on approved patterns for implementing Public and Private APIs in AWS including:
+* Guidance for using both AWS CloudFront and Akamai as the Content Delivery Network (CDN).
+* Guidance for securing Public APIs to make them Private.
+* Options for implementing authentication and the role authentication plays in simplifying API implementation.
+* <a href="#architecture-controls">Architecture Controls</a> that specify required implementation details</p>
+<h3 id="out-of-scope">Out of Scope</h3>
+<ul>
+<li>Configuration of Akamai services</li>
+<li>Configuration of Authentication services outside the specification to use Strong Authentication (e.g. MFA) as a means to secure public APIs.</li>
+</ul>
+<h2 id="approved-patterns">Approved Patterns</h2>
+<p>The following Architecture Patterns are approved for use for Public and Private APIs where the underlying API service runs in a SWA AWS environment.</p>
+<h3 id="public-apis">Public APIs</h3>
+<p>Public APIs should be those APIs that are read-only and only provide access to data deemed <strong>Public</strong> by the Data Classification guidelines. </p>
+<h4 id="public-api-using-cloudfront">Public API using CloudFront</h4>
+<p>For Public API services running entirely in AWS, those services should use the following architecture design.</p>
+<p><img alt="Public API with CloudFront" src="../images/Internet%20Ingress%20Patterns-Public%20API%20.drawio.png" /></p>
+<ul>
+<li>CloudFront provides a Public API global endpoint.</li>
+<li>CloudFront is integrated with AWS Shield Advanced. Shield Advanced is configured to allow the AWS DDoS Response Team to detect Distributed Denial of Service attacks and notify SWA.</li>
+<li>
+<p>CloudFront is also integrated with AWS Web Application Firewall (WAF) and the appropriate firewall rulesets have been loaded. Examples include but are not limited to: <a href="https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-baseline.html">AWS Managed Baseline Rule Groups</a></p>
+</li>
+<li>
+<p>CloudFront uses Route 53 to lookup the most appropriate API Gateway endpoint to forward API requests to.</p>
+</li>
+<li>Route 53 leverages health checks and Route 53 Application Recovery Controller to determine which API Gateway endpoint to direct API requests to.</li>
+</ul>
+<h4 id="public-api-using-akamai">Public API using Akamai</h4>
+<p>For Public API services using Akamai to provide the global API endpoint, the following architecture design should be used.</p>
+<p><img alt="Public API with Akamai" src="../images/Internet%20Ingress%20Patterns-Public%20API%20with%20Akamai.drawio.png" /></p>
+<ul>
+<li>Akamai provides the Global API endpoint and provides multiple API services (e.g. Bot Management, DDoS mitigation services, etc).</li>
+<li>Akamai connects directly to AWS CloudFront, and AWS WAF limits connections to the CloudFront Public API endpoint to sources originating from Akamai. The AWS WAF does not need to be configured to leverage any other managed rulesets.</li>
+<li>Shield Advanced is still configured to perform DDoS mitigation, similar to the Public API pattern above.</li>
+<li>CloudFront uses Route 53 to lookup the most appropriate API Gateway endpoint to forward API requests to.</li>
+<li>Route 53 leverages health checks and Route 53 Application Recovery Controller to determine which API Gateway endpoint to direct API requests to.</li>
+</ul>
+<h3 id="private-apis">Private APIs</h3>
+<p>Private APIs are those APIs that either provide access to non-public SWA data or are operational in nature. If the API facilitates a change in state to a SWA system, then the API is considered <strong>Private</strong> and one of the following patterns must be used.</p>
+<h4 id="restricting-access-with-authentication">Restricting access with Authentication</h4>
+<p>The preferred pattern to secure Private APIs, is to enable strong authentication. The authentication used must be considered to be strong authentication. 
+* Examples of strong authentication:
+    * Multi-Factor Authentication
+    * OAuth-based Authentication
+* Examples that do NOT qualify as strong authentication:
+    * Username and password
+    * Certificate based mutual authentication</p>
+<p><img alt="Private API with MFA" src="../images/Internet%20Ingress%20Patterns-Private%20API%20with%20MFA.drawio.png" /></p>
+<ul>
+<li>CloudFront provides a Public API global endpoint.</li>
+<li>CloudFront is integrated with AWS Shield Advanced. Shield Advanced is configured to allow the AWS DDoS Response Team to detect Distributed Denial of Service attacks and notify SWA.</li>
+<li>CloudFront is also integrated with AWS Web Application Firewall (WAF) and the appropriate firewall rulesets have been loaded. Examples include but are not limited to: <a href="https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-baseline.html">AWS Managed Baseline Rule Groups</a></li>
+<li>CloudFront is leveraging Lambda@Edge to inspect the headers for a previously successful authentication session. If the appropriate header is not found and validated, then the client is redirected to the SWA Enterprise Ping instance to be authenticated.</li>
+<li>Once authentication is complete, CloudFront uses Route 53 to lookup the most appropriate API Gateway endpoint to forward API requests to.</li>
+<li>Route 53 leverages health checks and Route 53 Application Recovery Controller to determine which API Gateway endpoint to direct API requests to.</li>
+<li>API Gateway has an AWS IAM resource policy attached to it to only allow connections from the specific CloudFront origin.</li>
+<li>API Service has an AWS IAM resource policy attached to it to only allow connections from the specific API Gateway configured for the service.</li>
+</ul>
+<h4 id="restricting-access-with-aws-waf">Restricting access with AWS WAF</h4>
+<p>If strong authentication cannot be used, then a pattern similar to the Public API with CloudFront can be used, provided the WAF rules are configured to restrict access to SWA internal networks and SWA public IP addresses.</p>
+<p><img alt="Public API with CloudFront" src="../images/Internet%20Ingress%20Patterns-Public%20API%20.drawio.png" /></p>
+<ul>
+<li>CloudFront provides a Public API global endpoint.</li>
+<li>CloudFront is integrated with AWS Shield Advanced. Shield Advanced is configured to allow the AWS DDoS Response Team to detect Distributed Denial of Service attacks and notify SWA.</li>
+<li>CloudFront is integrated with AWS Web Application Firewall (WAF):<ul>
+<li>Specific WAF rules have been loaded to <strong>restrict the Public API to SWA internal and public IP addresses</strong></li>
+<li>Additional appropriate firewall rulesets have been loaded. Examples include but are not limited to: <a href="https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-baseline.html">AWS Managed Baseline Rule Groups</a></li>
+</ul>
+</li>
+<li>CloudFront uses Route 53 to lookup the most appropriate API Gateway endpoint to forward API requests to.</li>
+<li>Route 53 leverages health checks and Route 53 Application Recovery Controller to determine which API Gateway endpoint to direct API requests to.</li>
+</ul>
+<h3 id="example-single-page-app">Example Single Page App</h3>
+<p>Below is an example architecture for a Single Page Web Application. In this architecture, the Private API with MFA pattern has been extended to include static content hosting from S3.</p>
+<p><img alt="Example Private SPA protected with MFA" src="../images/Internet%20Ingress%20Patterns-Private%20SPA%20with%20MFA%20.drawio.png" /></p>
+<h3 id="summary">Summary</h3>
+<p>In summary, this architecture guidance for Public and Private APIs attempts to simplify the number of patterns around common use of AWS service aligned to AWS best practices. Value is placed on reusability, simplicity, and security. This guidance should be revisited regularly to ensure these principals continue to be met.</p>
+<h2 id="architecture-controls">Architecture Controls</h2>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Control ID</strong></th>
+<th align="left"><strong>Control Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">CLOUDAPI-01</td>
+<td align="left">Public APIs must only expose SWA data classified as "PUBLIC"</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-02</td>
+<td align="left">CloudFront must be used as the API endpoint that users and services will interact with</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-03</td>
+<td align="left">CloudFront must require authentication for Private APIs</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-04</td>
+<td align="left">Where strong authentication using multi-factor cannot be used, WAF rules must be used to restrict access to SWA internal networks and SWA public IP addresses</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-05</td>
+<td align="left">API Gateway must restrict access to source from CloudFront</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-06</td>
+<td align="left">API services must restrict access to source from API Gateway</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-07</td>
+<td align="left">CloudFront must be configured to be integrated with Shield Advanced</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-08</td>
+<td align="left">Shield Advanced must minimally be configured to allow AWS DDoS Response Team (DRT) access to logs and must be configured with SWA contact info for DDoS event notification</td>
+</tr>
+<tr>
+<td align="left">CLOUDAPI-09</td>
+<td align="left">Where Akamai acts as the Content Delivery Network (CDN), CloudFront must be configured to only allow connections from Akamai</td>
+</tr>
+</tbody>
+</table>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../../Solution_Architecture/PDFtest/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Testing the embedding of a PDF" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Testing the embedding of a PDF
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Cloud%20Resiliency/Cloud_Resiliency_Guidance/" class="md-footer__link md-footer__link--next" aria-label="Next: Cloud Resiliency Guidance" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Cloud Resiliency Guidance
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+    
+  </body>
+</html>
