@@ -1,17 +1,18 @@
-# Welcome to MkDocs
+# Architecture Documentation Demo
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Table of Contents
+*   [Instructions](/1.%20Instructions/README.md)
+*   [Solution Architecture](/2.%20Solution%20Architecture/README.md)
+*   [Enterprise Architecture and Innovation](/3.%20Enterprise%20Architecture/README.md)
+*   [Technical Architecture](/4.%20Technical%20Architecture/README.md)
+*   [Overview](/ArchitectureDocsOverview/README.md)
+ 
 
-## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Purpose
+This site is an integration test to determine the feasibility of treating architecture documentation as code, leveraging Markdown, Git, and GitBook. This test uses GitHub, but could just as easily use GitLab. The publishing flow works like this.
 
-## Project layout
+![Git to GitBook Flow](/images/ArchDoc-BasicGitBookFlow.drawio.png)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+
+To view the test file, demonstrating the syntax of Markdown, click [here](/1.%20Instructions/MarkdownSyntax.md)
