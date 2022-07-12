@@ -1,10 +1,10 @@
 # Architecture Documentation Demo
 
 ## Table of Contents
-*   [Instructions](/1.%20Instructions/README.md)
-*   [Solution Architecture](/2.%20Solution%20Architecture/README.md)
-*   [Enterprise Architecture and Innovation](/3.%20Enterprise%20Architecture/README.md)
-*   [Technical Architecture](/4.%20Technical%20Architecture/README.md)
+*   [Instructions](/Instructions/README.md)
+*   [Solution Architecture](/Solution_Architecture/README.md)
+*   [Enterprise Architecture and Innovation](/Enterprise_Architecture/README.md)
+*   [Technical Architecture](/Technical_Architecture/README.md)
 *   [Overview](/ArchitectureDocsOverview/README.md)
  
 
